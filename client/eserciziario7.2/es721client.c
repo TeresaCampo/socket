@@ -19,9 +19,9 @@ int main(int argc, char *argv[])
     struct hostent *server;
     int portno, sockfd;
 
-    if (argc != 3)
+    if (argc != 2)
     {
-        error("ERROR: the function accept 2 ordered parameter(server name-port number)");
+        error("ERROR: the function accept 1 parameter(server name)");
         exit(0);
     }
     server = gethostbyname(argv[1]);
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     {
         error("ERROR: invalid host");
     }
-    portno = atoi(argv[2]);
+    portno = 2525;
     sockfd = socket(AF_INET, SOCK_STREAM, 0); // AF_INET--> IPv4, SOCK_STREAM-->TCP
     if (sockfd < 0)
     {
@@ -52,11 +52,21 @@ int main(int argc, char *argv[])
 
     printf("Connection established...\n");
     // fai cose
-    //char buffer[256];
-    //bzero(buffer, sizeof(buffer));
-    //int n=read(client_sockfd, buffer, sizeof(buffer));
-    //int n=write(client_sockfd, buffer, sizeof(buffer));
-    //fget(buffer,sizeof(buffer), stdin);
+    char buffer[256];
+    char message[256];
+    char *message_starter = "Connection from";
+    bzero(buffer, sizeof(buffer));
+    bzero(message, sizeof(message));
+
+    strcpy(message, message_starter);
+    gethostname(buffer, sizeof(buffer));
+    strcat(message, buffer);
+    printf("%s\n", message);
+    int n = write(sockfd, message, sizeof(message));
+
+    // int n=read(client_sockfd, buffer, sizeof(buffer));
+    // int n=write(client_sockfd, buffer, sizeof(buffer));
+    // fget(buffer,sizeof(buffer), stdin);
     printf("Closing conection...\n");
     return 0;
 }

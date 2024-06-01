@@ -17,11 +17,11 @@ int main(int argc, char *argv[])
 {
     // controllo i parametri: accetta porta sulla quale ascoltare
     int portno, welcoming_sockfd;
-    if (argc != 2)
+    if (argc > 1)
     {
-        error("ERROR: the function accept 1 parameter(port number)");
+        error("ERROR: the function doesn't accept parameters");
     }
-    portno = atoi(argv[1]);
+    portno = 2525;
     // posso iniziare l'esercizio
 
     // creo welcoming socket, faccio il bind con la porta e la metto in listening
@@ -57,11 +57,18 @@ int main(int argc, char *argv[])
     }
     printf("Connection established...\n");
     // fai cose
-    //char buffer[256];
-    //bzero(buffer, sizeof(buffer));
-    //int n=read(client_sockfd, buffer, sizeof(buffer));
-    //int n=write(client_sockfd, buffer, sizeof(buffer));
-    //fget(buffer,sizeof(buffer), stdin);
+    char buffer[256];
+    char hostname[256];
+    bzero((char *)buffer, sizeof(buffer));
+    bzero((char *)hostname, sizeof(buffer));
+
+    char message[] = "Welcome from ";
+    gethostname(hostname, sizeof(hostname));
+
+    strcpy(buffer, message);
+    strcat(buffer, hostname);
+
+    int n = write(client_sockfd, buffer, sizeof(buffer));
     printf("Closing conection...\n");
     return (0);
 }
