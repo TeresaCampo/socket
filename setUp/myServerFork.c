@@ -17,12 +17,11 @@ int main(int argc, char *argv[])
 {
     // controllo i parametri: accetta porta sulla quale ascoltare
     int portno, welcoming_sockfd;
-    if (argc != 2)
+    if (argc > 1)
     {
-        error("ERROR: the function accept 1 parameter(port number)");
+        error("ERROR: the function doesn't accept parameters");
     }
-    //PARAMETRO PORTA
-    portno = atoi(argv[1]);
+    portno = 2525;
     // posso iniziare l'esercizio
 
     // creo welcoming socket, faccio il bind con la porta e la metto in listening
@@ -51,18 +50,37 @@ int main(int argc, char *argv[])
     struct sockaddr_in client_address;
     int client_sockfd, client_len;
     client_len = sizeof(client_address);
-    client_sockfd = accept(welcoming_sockfd, (struct sockaddr *)&client_address, &client_len);
-    if (client_sockfd < 0)
+    while (1)
     {
-        error("ERROR: failed to accept connection");
+        client_sockfd = accept(welcoming_sockfd, (struct sockaddr *)&client_address, &client_len);
+        if (client_sockfd < 0)
+        {
+            error("ERROR: failed to accept connection");
+        }
+        // fai cose
+        int pid = fork();
+        if (pid < 0)
+        {
+            error("ERROR: failed to create child process");
+        }
+        if (pid == 0)
+        {
+            printf("Connection established...\n");
+            char buffer[256];
+            char hostname[256];
+            bzero((char *)buffer, sizeof(buffer));
+            bzero((char *)hostname, sizeof(buffer));
+
+            char message[] = "Welcome from ";
+            gethostname(hostname, sizeof(hostname));
+
+            strcpy(buffer, message);
+            strcat(buffer, hostname);
+
+            int n = write(client_sockfd, buffer, sizeof(buffer));
+            printf("Closing conection...\n");
+            return 0;
+        }
     }
-    printf("Connection established...\n");
-    // fai cose
-    //char buffer[256];
-    //bzero(buffer, sizeof(buffer));
-    //int n=read(client_sockfd, buffer, sizeof(buffer));
-    //int n=write(client_sockfd, buffer, sizeof(buffer));
-    //fget(buffer,sizeof(buffer), stdin);
-    printf("Closing conection...\n");
-    return (0);
+    return 0;
 }
