@@ -27,7 +27,7 @@ def main():
 			pid=os.fork()
 			if pid==0:
 				print("Connection established...client=",addr)
-				handleClient(conn,addr)
+				handleClient(conn,addr)  #<------------------gestisci richiesta client qui dentro
 				print("Connection closed...")
 				sys.exit()
 			else: 

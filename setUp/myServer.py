@@ -25,7 +25,7 @@ def main():
         conn, addr= welcomingSocket.accept()
         print("Connection established...client=",addr)
         #fai cose
-        handleClient(conn,addr)
+        handleClient(conn,addr) #<------------------gestisci richiesta client qui dentro
         print("Connection closed...")
         time.sleep(1)
 

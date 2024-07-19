@@ -13,6 +13,16 @@ void error(char *msg)
     exit(0);
 }
 
+void handleClient(int client_sockfd)
+{
+    // fai cose, funzioni utili da usare
+    // char buffer[256];
+    // bzero(buffer, sizeof(buffer));
+    // int n=read(client_sockfd, buffer, sizeof(buffer));
+    // int n=write(client_sockfd, buffer, sizeof(buffer));
+    // fget(buffer,sizeof(buffer), stdin);
+}
+
 int main(int argc, char *argv[])
 {
     // controllo i parametri: accetta porta sulla quale ascoltare
@@ -21,7 +31,7 @@ int main(int argc, char *argv[])
     {
         error("ERROR: the function accept 1 parameter(port number)");
     }
-    //PARAMETRO PORTA
+    // PARAMETRO PORTA
     portno = atoi(argv[1]);
     // posso iniziare l'esercizio
 
@@ -57,12 +67,7 @@ int main(int argc, char *argv[])
         error("ERROR: failed to accept connection");
     }
     printf("Connection established...\n");
-    // fai cose
-    //char buffer[256];
-    //bzero(buffer, sizeof(buffer));
-    //int n=read(client_sockfd, buffer, sizeof(buffer));
-    //int n=write(client_sockfd, buffer, sizeof(buffer));
-    //fget(buffer,sizeof(buffer), stdin);
+    handleClient(client_sockfd); //<------------gestisci connessione del client qui
     printf("Closing conection...\n");
     return (0);
 }

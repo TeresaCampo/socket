@@ -24,13 +24,13 @@ int main(int argc, char *argv[])
         error("ERROR: the function accept 2 ordered parameter(server name-port number)");
         exit(0);
     }
-    //PARAMETRO SERVER
+    // PARAMETRO SERVER
     server = gethostbyname(argv[1]);
     if (server == NULL)
     {
         error("ERROR: invalid host");
     }
-    //PARAMETRO PORT
+    // PARAMETRO PORT
     portno = atoi(argv[2]);
     sockfd = socket(AF_INET, SOCK_STREAM, 0); // AF_INET--> IPv4, SOCK_STREAM-->TCP
     if (sockfd < 0)
@@ -53,12 +53,13 @@ int main(int argc, char *argv[])
     }
 
     printf("Connection established...\n");
-    // fai cose
-    //char buffer[256];
-    //bzero(buffer, sizeof(buffer));
-    //int n=read(client_sockfd, buffer, sizeof(buffer));
-    //int n=write(client_sockfd, buffer, sizeof(buffer));
-    //fget(buffer,sizeof(buffer), stdin);
+    // fai cose, funzioni utili da usare
+    // char buffer[256];
+    // bzero(buffer, sizeof(buffer));
+    // int n=read(client_sockfd, buffer, sizeof(buffer));
+    // int n=write(client_sockfd, buffer, sizeof(buffer));
+    // fget(buffer,sizeof(buffer), stdin);
+    // fine cose
     printf("Closing conection...\n");
     return 0;
 }

@@ -13,6 +13,16 @@ void error(char *msg)
     exit(0);
 }
 
+void handleClient(int client_sockfd)
+{
+    // fai cose, funzioni utili da usare
+    // char buffer[256];
+    // bzero(buffer, sizeof(buffer));
+    // int n=read(client_sockfd, buffer, sizeof(buffer));
+    // int n=write(client_sockfd, buffer, sizeof(buffer));
+    // fget(buffer,sizeof(buffer), stdin);
+}
+
 int main(int argc, char *argv[])
 {
     // controllo i parametri: accetta porta sulla quale ascoltare
@@ -66,18 +76,7 @@ int main(int argc, char *argv[])
         if (pid == 0)
         {
             printf("Connection established...\n");
-            char buffer[256];
-            char hostname[256];
-            bzero((char *)buffer, sizeof(buffer));
-            bzero((char *)hostname, sizeof(buffer));
-
-            char message[] = "Welcome from ";
-            gethostname(hostname, sizeof(hostname));
-
-            strcpy(buffer, message);
-            strcat(buffer, hostname);
-
-            int n = write(client_sockfd, buffer, sizeof(buffer));
+            handleClient(client_sockfd); //<-----------------------gestisci richiesta client qui dentro
             printf("Closing conection...\n");
             return 0;
         }
