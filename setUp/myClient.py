@@ -23,7 +23,7 @@ def main():
         #creo connessione
         s.connect((HOST,PORT))
         print("Connession established...")
-        handleClient(s)
+        handleClient(s) #<--------cosa far fare al client qui
         print("Closing connection...")
         #chiudo la connessione
         s.close()
